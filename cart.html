@@ -148,8 +148,9 @@
         couponMsg: "",
         applyCoupon() {
           const code = this.coupon.trim().toUpperCase();
+          const subtotal = Alpine.store("cart").total;
           if (code === "STORE10") {
-            this.discount = Math.round($store.cart.total * 0.1);
+            this.discount = Math.round(subtotal * 0.1);
             this.couponMsg = "Áp dụng mã STORE10 — giảm 10%!";
           } else if (code === "") {
             this.couponMsg = "Vui lòng nhập mã giảm giá.";
@@ -160,8 +161,9 @@
           }
         },
         grandTotal() {
-          const ship = $store.cart.total >= 500000 ? 0 : this.shipping;
-          return Math.max(0, $store.cart.total + ship - this.discount);
+          const subtotal = Alpine.store("cart").total;
+          const ship = subtotal >= 500000 ? 0 : this.shipping;
+          return Math.max(0, subtotal + ship - this.discount);
         }
       };
     }

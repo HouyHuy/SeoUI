@@ -292,7 +292,7 @@
           }
         },
         addToCart() {
-          this.product && $store.cart.add(this.product, this.qty, {
+          this.product && Alpine.store("cart").add(this.product, this.qty, {
             color: this.product.colors[this.color], size: this.size
           });
           window.dispatchEvent(new CustomEvent("add-toast", { detail: "Đã thêm vào giỏ hàng!" }));
