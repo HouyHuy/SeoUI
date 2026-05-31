@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STORE — Thời trang tối giản | Bộ sưu tập mới nhất</title>
+  <meta name="description" content="STORE — cửa hàng thời trang tối giản. Áo, quần, giày, phụ kiện chất lượng cao, thiết kế monochrome. Miễn phí vận chuyển đơn từ 500K." />
+  <meta name="keywords" content="thời trang, áo thun, quần jeans, giày sneaker, phụ kiện, mua sắm online" />
+  <meta name="author" content="STORE" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://store.example.com/index.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="STORE — Thời trang tối giản" />
+  <meta property="og:description" content="Bộ sưu tập mới nhất. Thiết kế monochrome, chất lượng cao." />
+  <meta property="og:url" content="https://store.example.com/index.html" />
+  <meta property="og:site_name" content="STORE" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="STORE — Thời trang tối giản" />
+  <meta name="twitter:description" content="Bộ sưu tập mới nhất. Thiết kế monochrome, chất lượng cao." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <script>(function(){try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark';}catch(e){}})();</script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: {
+        colors: {
+          bg: 'var(--bg)', 'bg-2': 'var(--bg-2)', 'bg-3': 'var(--bg-3)',
+          surface: 'var(--surface)',
+          t1: 'var(--text-1)', t2: 'var(--text-2)', t3: 'var(--text-3)',
+          accent: 'var(--accent)', 'accent-fg': 'var(--accent-fg)'
+        },
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+      } }
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Store",
+    "name": "STORE",
+    "description": "Cửa hàng thời trang tối giản",
+    "url": "https://store.example.com"
+  }
+  </script>
+</head>
+
+<body class="font-sans">
+  <a href="#main" class="skip-link">Bỏ qua tới nội dung chính</a>
+
+  <!-- ====================== HEADER ====================== -->
+  <header class="site-header" x-data="header">
+    <div class="container-c h-16 flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <a href="index.html" class="logo">STORE</a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-8" aria-label="Điều hướng chính">
+        <a href="index.html" class="nav-link">Trang chủ</a>
+        <a href="index.html#products" class="nav-link">Sản phẩm</a>
+        <a href="contact.html" class="nav-link">Liên hệ</a>
+      </nav>
+
+      <!-- Right icons -->
+      <div class="flex items-center gap-1">
+        <!-- search -->
+        <button class="icon-btn" @click="searchOpen = !searchOpen" aria-label="Tìm kiếm">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <!-- cart -->
+        <a href="cart.html" class="icon-btn" aria-label="Giỏ hàng">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.6 13a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          <span class="cart-badge" x-show="$store.cart.count > 0" x-text="$store.cart.count" x-cloak></span>
+        </a>
+        <!-- theme -->
+        <button class="icon-btn" @click="$store.theme.toggle()" aria-label="Chuyển giao diện sáng/tối">
+          <svg x-show="!$store.theme.isDark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg x-show="$store.theme.isDark" x-cloak width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        </button>
+        <!-- login -->
+        <a href="login.html" class="icon-btn hidden sm:grid" aria-label="Đăng nhập">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 1 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+        <!-- hamburger -->
+        <button class="icon-btn md:hidden" @click="open()" aria-label="Mở menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search bar -->
+    <div x-show="searchOpen" x-cloak x-transition class="border-t-c bg">
+      <div class="container-c py-3">
+        <form @submit.prevent="submitSearch()" class="flex gap-2">
+          <input type="search" class="input" placeholder="Tìm sản phẩm..." x-model="query" aria-label="Ô tìm kiếm" />
+          <button class="btn btn-primary" type="submit">Tìm</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <template x-teleport="body">
+      <div x-show="mobileOpen" x-cloak>
+        <div class="drawer-overlay" @click="close()"></div>
+        <aside class="drawer" x-show="mobileOpen" x-transition:enter-start="-translate-x-full" x-transition:enter-end="translate-x-0" style="transition:transform .25s ease">
+          <div class="flex items-center justify-between mb-8">
+            <span class="logo">STORE</span>
+            <button class="icon-btn" @click="close()" aria-label="Đóng menu">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <nav class="flex flex-col gap-2" aria-label="Điều hướng di động">
+            <a href="index.html" class="py-2 nav-link">Trang chủ</a>
+            <a href="index.html#products" class="py-2 nav-link">Sản phẩm</a>
+            <a href="contact.html" class="py-2 nav-link">Liên hệ</a>
+            <a href="login.html" class="py-2 nav-link">Đăng nhập</a>
+            <a href="profile.html" class="py-2 nav-link">Tài khoản</a>
+          </nav>
+        </aside>
+      </div>
+    </template>
+  </header>
+
+  <main id="main">
+    <!-- ====================== HERO ====================== -->
+    <section class="bg-2" style="min-height:100svh" >
+      <div class="container-c flex flex-col items-center justify-center text-center" style="min-height:calc(100svh - 64px)">
+        <div class="fade-up max-w-2xl">
+          <p class="text-2 mb-4 tracking-wide uppercase text-sm">Bộ sưu tập 2026</p>
+          <h1 class="font-bold mb-5" style="font-size:clamp(36px,7vw,56px);letter-spacing:-0.03em;line-height:1.1">
+            Bộ sưu tập mới nhất
+          </h1>
+          <p class="text-2 mb-8" style="font-size:18px">
+            Thời trang tối giản, chất lượng bền vững. Định hình phong cách của riêng bạn với gam màu monochrome tinh tế.
+          </p>
+          <div class="flex flex-wrap gap-3 justify-center">
+            <a href="#products" class="btn btn-primary">Khám phá ngay</a>
+            <a href="#categories" class="btn btn-outline">Xem lookbook</a>
+          </div>
+        </div>
+        <a href="#categories" class="scroll-indicator mt-16 text-3" aria-label="Cuộn xuống">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ====================== CATEGORIES ====================== -->
+    <section id="categories" class="container-c py-20">
+      <h2 class="text-3xl font-semibold mb-8">Danh mục nổi bật</h2>
+      <div class="hscroll md:grid md:grid-cols-4 md:gap-5">
+        <template x-for="cat in [
+          {name:'Áo', icon:'👕'},
+          {name:'Quần', icon:'👖'},
+          {name:'Giày', icon:'👟'},
+          {name:'Phụ kiện', icon:'🧢'}
+        ]" :key="cat.name">
+          <a href="#products"
+             class="bg-2 rounded-lg-c relative overflow-hidden flex items-end p-5 transition"
+             style="aspect-ratio:1/1;min-width:200px"
+             onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <span class="absolute top-5 right-5 text-4xl opacity-60" x-text="cat.icon"></span>
+            <span class="font-medium text-lg" x-text="cat.name"></span>
+          </a>
+        </template>
+      </div>
+    </section>
+
+    <!-- ====================== FEATURED PRODUCTS ====================== -->
+    <section id="products" class="container-c py-12 scroll-mt-20">
+      <div class="flex items-end justify-between mb-8">
+        <h2 class="text-3xl font-semibold">Sản phẩm nổi bật</h2>
+        <span class="text-2 text-sm hidden sm:block">8 sản phẩm</span>
+      </div>
+
+      <div x-data="{ products: window.products, wishlist: [] }"
+           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <template x-for="p in products" :key="p.id">
+          <article class="product-card flex flex-col">
+            <a :href="`product.html?id=${p.id}`" class="block relative">
+              <div class="product-thumb">
+                <span class="text-5xl opacity-30" x-text="p.name.charAt(0)"></span>
+              </div>
+              <span x-show="p.badge" class="badge" :class="p.badge === 'SALE' ? 'badge-sale' : 'badge-hot'" x-text="p.badge" x-cloak></span>
+            </a>
+            <button class="wishlist-btn"
+                    :class="wishlist.includes(p.id) && 'is-active'"
+                    @click="wishlist.includes(p.id) ? wishlist = wishlist.filter(i=>i!==p.id) : wishlist.push(p.id)"
+                    :aria-label="`Yêu thích ${p.name}`">
+              <svg width="18" height="18" viewBox="0 0 24 24" :fill="wishlist.includes(p.id) ? 'currentColor':'none'" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 1 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            </button>
+
+            <div class="p-4 flex flex-col gap-2 flex-1">
+              <a :href="`product.html?id=${p.id}`" class="font-medium hover:underline" x-text="p.name"></a>
+              <div class="flex items-center gap-2">
+                <span class="font-semibold" x-text="formatPrice(p.price)"></span>
+                <span x-show="p.oldPrice" class="text-3 line-through text-sm" x-text="p.oldPrice ? formatPrice(p.oldPrice) : ''" x-cloak></span>
+              </div>
+              <div class="flex items-center gap-2 text-sm">
+                <span class="stars" x-text="renderStars(p.rating)"></span>
+                <span class="text-3" x-text="`(${p.reviews})`"></span>
+              </div>
+              <button class="btn btn-primary btn-block mt-auto"
+                      @click="$store.cart.add(p, 1)">
+                Thêm vào giỏ
+              </button>
+            </div>
+          </article>
+        </template>
+      </div>
+    </section>
+
+    <!-- ====================== BANNER CTA ====================== -->
+    <section class="bg-3 my-20">
+      <div class="container-c py-16 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <h2 class="text-3xl font-semibold mb-4">Giảm đến 30% cho bộ sưu tập mới</h2>
+          <p class="text-2 mb-6">Ưu đãi có hạn cho thành viên. Đăng ký ngay để nhận mã giảm giá và cập nhật xu hướng mới nhất.</p>
+          <a href="register.html" class="btn btn-primary">Đăng ký nhận ưu đãi</a>
+        </div>
+        <div class="bg-2 rounded-lg-c flex items-center justify-center text-3" style="aspect-ratio:16/10">
+          <span>Hình ảnh khuyến mãi</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== TESTIMONIALS ====================== -->
+    <section class="container-c py-12 mb-10">
+      <h2 class="text-3xl font-semibold mb-8 text-center">Khách hàng nói gì</h2>
+      <div class="grid md:grid-cols-3 gap-5">
+        <template x-for="t in [
+          {name:'Minh Anh', initials:'MA', text:'Chất vải rất đẹp, form chuẩn. Giao hàng nhanh, đóng gói cẩn thận. Sẽ ủng hộ tiếp!'},
+          {name:'Quốc Bảo', initials:'QB', text:'Thiết kế tối giản đúng gu mình. Mặc đi làm hay đi chơi đều hợp. 10 điểm.'},
+          {name:'Thu Hà', initials:'TH', text:'Mua giày sneaker trắng, đi êm chân và bền. Giá hợp lý so với chất lượng.'}
+        ]" :key="t.name">
+          <div class="card p-6 flex flex-col gap-3">
+            <div class="flex items-center gap-3">
+              <div class="bg-surface rounded-full grid place-items-center font-semibold" style="width:44px;height:44px" x-text="t.initials"></div>
+              <div>
+                <p class="font-medium" x-text="t.name"></p>
+                <span class="stars text-sm">★★★★★</span>
+              </div>
+            </div>
+            <p class="text-2 text-sm" x-text="t.text"></p>
+          </div>
+        </template>
+      </div>
+    </section>
+  </main>
+
+  <!-- ====================== FOOTER ====================== -->
+  <footer class="border-t-c bg-2">
+    <div class="container-c py-14 grid gap-10 md:grid-cols-3">
+      <div>
+        <p class="logo mb-3">STORE</p>
+        <p class="text-2 text-sm max-w-xs">Thời trang tối giản cho cuộc sống hiện đại. Chất lượng bền vững, thiết kế vượt thời gian.</p>
+      </div>
+      <div>
+        <p class="font-medium mb-3">Liên kết</p>
+        <ul class="flex flex-col gap-2 text-sm text-2">
+          <li><a href="index.html" class="hover:text-t1">Trang chủ</a></li>
+          <li><a href="index.html#products" class="hover:text-t1">Sản phẩm</a></li>
+          <li><a href="contact.html" class="hover:text-t1">Liên hệ</a></li>
+          <li><a href="profile.html" class="hover:text-t1">Tài khoản</a></li>
+        </ul>
+      </div>
+      <div x-data="toast">
+        <p class="font-medium mb-3">Đăng ký nhận tin</p>
+        <p class="text-2 text-sm mb-3">Nhận thông tin sản phẩm mới và ưu đãi độc quyền.</p>
+        <form class="flex gap-2" @submit.prevent="fire('Đăng ký nhận tin thành công!')">
+          <input type="email" required class="input" placeholder="Email của bạn" aria-label="Email đăng ký nhận tin" />
+          <button class="btn btn-primary" type="submit">Gửi</button>
+        </form>
+        <div x-show="show" x-cloak x-transition class="toast" x-text="message" role="status"></div>
+      </div>
+    </div>
+    <div class="border-t-c">
+      <p class="container-c py-5 text-center text-sm text-3">© 2026 STORE. Đã đăng ký bản quyền.</p>
+    </div>
+  </footer>
+</body>
+</html>
