@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /login.html
+Disallow: /register.html
+Disallow: /profile.html
+Disallow: /cart.html
+
+Sitemap: https://store.example.com/sitemap.xml
